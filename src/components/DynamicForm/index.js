@@ -1,17 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "./form.css";
 
 export default class DynamicForm extends React.Component {
   state = {};
-  constructor(props) {
-    super(props);
-  }
-
+  
   static getDerivedStateFromProps(nextProps, prevState) {
     console.log("gds:p:s", nextProps.defaultValues, prevState);
 
-    let derivedState = {};
 
     if (
       nextProps.defaultValues &&
@@ -41,7 +36,7 @@ export default class DynamicForm extends React.Component {
       v.validations.forEach((vd) => {
         let r = vd.validator(fieldValue);
         if (!r) {
-          if (errors[v.key] == undefined) {
+          if (errors[v.key] === undefined) {
             errors[v.key] = [];
           }
           //errors.push(`${v.key} ${vd.message}`)
@@ -106,7 +101,6 @@ export default class DynamicForm extends React.Component {
 
   renderForm = () => {
     let model = this.props.model;
-    let defaultValues = this.props.defaultValues;
 
     let formUI = model.map(m => {
       let key = m.key;
@@ -132,9 +126,9 @@ export default class DynamicForm extends React.Component {
         />
       );
 
-      if (type == "radio") {
+      if (type === "radio") {
         input = m.options.map(o => {
-          let checked = o.value == value;
+          let checked = o.value === value;
           return (
             <React.Fragment key={"fr" + o.key}>
               <input
@@ -156,10 +150,8 @@ export default class DynamicForm extends React.Component {
         input = <div className="form-group-radio">{input}</div>;
       }
 
-      if (type == "select") {
+      if (type === "select") {
         input = m.options.map(o => {
-          let checked = o.value == value;
-          //console.log("select: ", o.value, value);
           return (
             <option
               {...props}
@@ -185,7 +177,7 @@ export default class DynamicForm extends React.Component {
         );
       }
 
-      if (type == "checkbox") {
+      if (type === "checkbox") {
         input = m.options.map(o => {
           //let checked = o.value == value;
           let checked = false;

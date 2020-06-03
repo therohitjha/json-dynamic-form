@@ -41,11 +41,12 @@ class App extends Component {
     current: {}
   };
 
+
   onSubmit = model => {
     let data = [];
     if (model.id) {
       data = this.state.data.filter(d => {
-        return d.id != model.id;
+        return d.id !== model.id;
       });
     } else {
       model.id = +new Date();
@@ -60,7 +61,7 @@ class App extends Component {
 
   onEdit = id => {
     let record = this.state.data.find(d => {
-      return d.id == id;
+      return d.id === id;
     });
     //alert(JSON.stringify(record));
     this.setState({
@@ -68,11 +69,7 @@ class App extends Component {
     });
   };
 
-  onNewClick = e => {
-    this.setState({
-      current: {}
-    });
-  };
+
 
   render() {
     let data = this.state.data.map(d => {
@@ -101,9 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="form-actions">
-          <button onClick={this.onNewClick} type="submit">
-            NEW
-          </button>
+        
         </div>
         <DynamicForm
           key={this.state.current.id}
@@ -162,6 +157,7 @@ class App extends Component {
               type: "select",
               value: "Kerala",
               options: [
+                { key: "blank", label: "Select City", value: "Select City" },
                 { key: "mumbai", label: "Mumbai", value: "Mumbai" },
                 { key: "bangalore", label: "Bangalore", value: "Bangalore" },
                 { key: "kerala", label: "Kerala", value: "Kerala" }
